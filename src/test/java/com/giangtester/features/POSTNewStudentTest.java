@@ -1,10 +1,9 @@
 package com.giangtester.features;
 
+import com.giangtester.base.BaseClass;
 import com.giangtester.models.Student;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,13 +12,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class PostNewStudentTest {
-    @BeforeAll
-    static void init() {
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.basePath = "/student";
-        RestAssured.port = 8080;
-    }
+public class POSTNewStudentTest extends BaseClass {
 
     @Test
     void postNewStudent() {

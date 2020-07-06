@@ -1,20 +1,12 @@
 package com.giangtester.features;
 
-import io.restassured.RestAssured;
+import com.giangtester.base.BaseClass;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
-class GetListStudentTest {
-
-    @BeforeAll
-    public static void init() {
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.basePath = "/student";
-        RestAssured.port = 8080;
-    }
+class GETListStudentTest extends BaseClass {
 
     @Test
     public void getListStudent() {

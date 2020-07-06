@@ -1,22 +1,14 @@
 package com.giangtester.features;
 
+import com.giangtester.base.BaseClass;
 import com.giangtester.models.Student;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class DELETEStudentTest {
-
-    @BeforeAll
-    static void init() {
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.basePath = "/student";
-        RestAssured.port = 8080;
-    }
+public class DELETEStudentTest extends BaseClass {
 
     @Test
     void deleteAnExistingStudent() {
