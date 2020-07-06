@@ -1,39 +1,27 @@
 package com.giangtester.features;
 
+import com.giangtester.api.PostStudent;
 import com.giangtester.base.BaseClass;
 import com.giangtester.models.Student;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class POSTNewStudentTest extends BaseClass {
 
+    private Student student;
+    private final PostStudent postStudent = new PostStudent();
+
+    @BeforeEach
+    void createStudent() {
+        student = Student.getInstance();
+    }
+
     @Test
     void postNewStudent() {
-        List<String> courses = new ArrayList<>();
-        courses.add("Math");
-        courses.add("Economics");
-
-        Student student = Student.getInstance();
-        student.setId(101);
-        student.setFirstName("Giang");
-        student.setLastName("Nguyen");
-        student.setEmail("giang.nguyen@gc.com");
-        student.setProgramme("Computer Science");
-        student.setCourses(courses);
-
-        Response res = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .body(student)
-                .post();
-        //res.prettyPrint();
+        Response res = postStudent.createAStudent(student);
         res.then().statusCode(201).body("msg", equalTo("Student added"));
     }
 }

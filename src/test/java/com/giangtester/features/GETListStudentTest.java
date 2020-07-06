@@ -14,12 +14,13 @@ class GETListStudentTest extends BaseClass {
     @Test
     public void getListStudent() {
         Response res = getStudent.getListStudent();
+        res.prettyPrint();
         res.then().statusCode(200);
     }
 
     @Test
-    public void getFirstStudent() {
-        Response res = getStudent.getListStudentById("1");
-        res.then().statusCode(200).body("email", equalTo("adalberto.glover@yahoo.com"));
+    public void getSecondStudent() {
+        Response res = getStudent.getListStudentById("2");
+        res.then().statusCode(200).body("email", equalTo("faucibus.orci.luctus@Duisac.net"));
     }
 }

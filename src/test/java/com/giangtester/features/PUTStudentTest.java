@@ -1,35 +1,38 @@
 package com.giangtester.features;
 
+import com.giangtester.api.GetStudent;
+import com.giangtester.api.PutStudent;
 import com.giangtester.base.BaseClass;
 import com.giangtester.models.Student;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class PUTStudentTest extends BaseClass {
 
+    private Student student;
+    private final PutStudent putStudent = new PutStudent();
+    private final GetStudent getStudent = new GetStudent();
+
+    @BeforeEach
+    void createStudent() {
+        student = Student.getInstance();
+    }
+
     @Test
     void changeInformationOfAnExistingStudent() {
-        Student student = Student.getInstance();
         student.setFirstName("Giang");
 
-        Response res = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .body(student)
-                .put("/1");
-
-        res.prettyPrint();
+        Response res = putStudent.updateStudent(student, "1");
         res.then().statusCode(200).body("msg", equalTo("Student Updated"));
 
-        JsonPath jsonPath = given().when().get("/list").then().extract().body().jsonPath();
+        JsonPath jsonPath = getStudent.getListStudent().then().extract().body().jsonPath();
         List<Student> students = jsonPath.getList("", Student.class);
         assertThat(students.get(0).getFirstName(), equalTo("Giang"));
     }
