@@ -24,6 +24,5 @@ class GetListStudentTest {
 
         res.prettyPrint();
         res.then().statusCode(200);
-
     }
 }

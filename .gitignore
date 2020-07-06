@@ -10,3 +10,5 @@
 /target
 restassured.iml
 .idea
+rest.jar
+.java-version

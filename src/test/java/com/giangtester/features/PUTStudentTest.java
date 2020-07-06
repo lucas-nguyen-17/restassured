@@ -8,7 +8,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -26,23 +25,16 @@ public class PUTStudentTest {
 
     @Test
     void changeInformationOfAnExistingStudent() {
-        List<String> courses = new ArrayList<>();
-        courses.add("Math");
-        courses.add("Economics");
-
         Student student = Student.getInstance();
-        student.setId(101);
         student.setFirstName("Giang");
-        student.setLastName("Nguyen");
-        student.setEmail("giang.nguyen@gc.com");
-        student.setProgramme("Computer Science");
-        student.setCourses(courses);
 
         Response res = given()
                 .contentType(ContentType.JSON)
                 .when()
                 .body(student)
                 .put("/1");
+
+        res.prettyPrint();
         res.then().statusCode(200).body("msg", equalTo("Student Updated"));
 
         JsonPath jsonPath = given().when().get("/list").then().extract().body().jsonPath();
